@@ -1,5 +1,6 @@
+import 'package:battery_saved/utils.dart';
 import 'package:flutter/material.dart';
-import 'package:battery_saved/compliance_gate.dart';
+// import 'package:battery_saved/compliance_gate.dart';
 
 void main() {
   runApp(const MyApp());
@@ -12,15 +13,18 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: ComplianceGate(
-        requireIgnoreOptimizations: true,
-        child: Scaffold(
-          appBar: AppBar(
-            title: const Text('Material App Bar'),
-          ),
-          body: const Center(
-            child: Text('Hello World'),
-          ),
+      home: Scaffold(
+        appBar: AppBar(
+          title: const Text('Material App Bar'),
+        ),
+        body: const Center(
+          child: Text('Hello World'),
+        ),
+        floatingActionButton: FloatingActionButton(
+          onPressed: () async {
+            await Utils().init();
+          },
+          child: const Icon(Icons.settings),
         ),
       ),
     );

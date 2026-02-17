@@ -29,7 +29,7 @@ class _ComplianceGateState extends State<ComplianceGate>
   void initState() {
     super.initState();
     WidgetsBinding.instance.addObserver(this);
-    _init();
+    init();
   }
 
   @override
@@ -43,7 +43,7 @@ class _ComplianceGateState extends State<ComplianceGate>
     if (state == AppLifecycleState.resumed) _refreshStatus();
   }
 
-  Future<void> _init() async {
+  Future<void> init() async {
     setState(() => _loading = true);
     final cfg = await ComplianceConfig.loadAsset();
     final st = await BatteryComplianceApi.status();
