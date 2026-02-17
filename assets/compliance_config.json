@@ -1,0 +1,204 @@
+{
+  "version": 1,
+  "hard_checks": {
+    "backgroundRestricted": {
+      "key": "backgroundRestricted",
+      "severity": "block",
+      "title": "Restricción en segundo plano",
+      "description": "Android está restringiendo la ejecución en segundo plano para esta app. Debes quitar la restricción."
+    },
+    "ignoringOptimizations": {
+      "key": "ignoringOptimizations",
+      "severity": "block",
+      "title": "Optimización de batería",
+      "description": "La app debe quedar como “Sin restricciones / No optimizar” para funcionar correctamente."
+    },
+    "powerSaveMode": {
+      "key": "powerSaveMode",
+      "severity": "warn",
+      "title": "Ahorro de batería activo",
+      "description": "El modo ahorro puede limitar sincronización, notificaciones y ejecución en segundo plano."
+    }
+  },
+  "actions": {
+    "openAppDetails": {
+      "id": "openAppDetails",
+      "label": "Abrir ajustes de la app",
+      "type": "android_intent"
+    },
+    "requestIgnoreOptimizations": {
+      "id": "requestIgnoreOptimizations",
+      "label": "Permitir “Sin restricciones”",
+      "type": "android_intent"
+    },
+    "openOptimizationSettings": {
+      "id": "openOptimizationSettings",
+      "label": "Abrir optimización de batería",
+      "type": "android_intent"
+    }
+  },
+  "oem_profiles": [
+    {
+      "id": "samsung_oneui",
+      "match": { "keywords_any": ["samsung"] },
+      "title": "Samsung (One UI)",
+      "requires_user_confirmation": true,
+      "user_confirmations": [
+        {
+          "id": "samsung_never_sleeping",
+          "label": "Agregué la app a “Never sleeping apps” o la removí de “Sleeping/Deep sleeping”.",
+          "why": "Si la app cae en sleeping apps, el sistema limita tareas en segundo plano."
+        },
+        {
+          "id": "samsung_put_unused_off",
+          "label": "Desactivé “Put unused apps to sleep” (si aparece).",
+          "why": "Puede forzar que apps empresariales se duerman automáticamente."
+        }
+      ],
+      "steps": [
+        "Ir a Ajustes > Batería > Límites de uso en segundo plano.",
+        "Revisar Sleeping apps / Deep sleeping apps.",
+        "Agregar la app a Never sleeping apps si existe."
+      ]
+    },
+    {
+      "id": "xiaomi_miui",
+      "match": { "keywords_any": ["xiaomi", "redmi", "poco", "miui"] },
+      "title": "Xiaomi / POCO (MIUI)",
+      "requires_user_confirmation": true,
+      "user_confirmations": [
+        {
+          "id": "miui_autostart",
+          "label": "Activé “Autostart / Inicio automático”.",
+          "why": "MIUI puede impedir ejecución en segundo plano."
+        },
+        {
+          "id": "miui_no_restrictions",
+          "label": "Configuré batería como “No restrictions / Sin restricciones”.",
+          "why": "Evita que MIUI mate procesos."
+        }
+      ],
+      "steps": [
+        "Ir a Ajustes > Apps > (esta app) > Batería.",
+        "Seleccionar “Sin restricciones”.",
+        "Buscar Autostart y habilitarlo."
+      ]
+    },
+    {
+      "id": "huawei_emui",
+      "match": { "keywords_any": ["huawei", "emui"] },
+      "title": "Huawei (EMUI)",
+      "requires_user_confirmation": true,
+      "user_confirmations": [
+        {
+          "id": "emui_app_launch_manual",
+          "label": "En App Launch seleccioné “Manage manually” y permití ejecución en segundo plano.",
+          "why": "EMUI puede bloquear ejecución automática."
+        }
+      ],
+      "steps": [
+        "Ir a Ajustes > Batería > App launch.",
+        "Seleccionar Manage manually.",
+        "Activar Run in background."
+      ]
+    },
+    {
+      "id": "honor_magicos",
+      "match": { "keywords_any": ["honor", "magic", "magicos", "magicui"] },
+      "title": "HONOR (Magic UI / MagicOS)",
+      "requires_user_confirmation": true,
+      "user_confirmations": [
+        {
+          "id": "honor_launch_run_in_background",
+          "label": "En Launch/App launch desactivé “Manage automatically” y permití “Run in background”.",
+          "why": "HONOR puede limpiar apps del background."
+        },
+        {
+          "id": "honor_battery_optimization_dont_allow",
+          "label": "En Battery optimization puse la app en “Don’t allow / No optimizar”.",
+          "why": "Evita optimización agresiva."
+        },
+        {
+          "id": "honor_power_saving_off",
+          "label": "(Opcional) Desactivé Power saving mientras uso la app.",
+          "why": "Puede limitar sincronización."
+        }
+      ],
+      "steps": [
+        "Ir a Settings > Launch/App launch.",
+        "Desactivar Manage automatically.",
+        "Activar Run in background.",
+        "Ir a Settings > Battery optimization.",
+        "Seleccionar Don’t allow."
+      ]
+    },
+    {
+      "id": "oppo_coloros",
+      "match": { "keywords_any": ["oppo", "realme", "oneplus", "coloros", "oxygenos"] },
+      "title": "OPPO / realme / OnePlus",
+      "requires_user_confirmation": true,
+      "user_confirmations": [
+        {
+          "id": "oem_autolaunch",
+          "label": "Activé Auto launch.",
+          "why": "Evita bloqueos en background."
+        },
+        {
+          "id": "oem_background_activity",
+          "label": "Permití Run in background.",
+          "why": "Sin esto la app puede detenerse."
+        }
+      ],
+      "steps": [
+        "Ir a Ajustes > Apps > (esta app) > Batería.",
+        "Habilitar Run in background.",
+        "Buscar Auto launch."
+      ]
+    },
+    {
+      "id": "vivo_funtouch",
+      "match": { "keywords_any": ["vivo", "funtouch"] },
+      "title": "Vivo (Funtouch OS)",
+      "requires_user_confirmation": true,
+      "user_confirmations": [
+        {
+          "id": "vivo_autostart",
+          "label": "Habilité Autostart.",
+          "why": "Puede bloquear ejecución automática."
+        }
+      ],
+      "steps": [
+        "Ir a Ajustes > Apps > (esta app) > Batería.",
+        "Seleccionar Unrestricted si existe."
+      ]
+    },
+    {
+      "id": "motorola",
+      "match": { "keywords_any": ["motorola", "lenovo"] },
+      "title": "Motorola",
+      "requires_user_confirmation": true,
+      "user_confirmations": [
+        {
+          "id": "moto_unrestricted",
+          "label": "Configuré batería como Unrestricted.",
+          "why": "Algunos modelos requieren abrir el detalle."
+        }
+      ],
+      "steps": [
+        "Ir a Ajustes > Apps > (esta app) > Batería.",
+        "Seleccionar Unrestricted."
+      ]
+    },
+    {
+      "id": "generic_android",
+      "match": { "manufacturer_any": ["*"] },
+      "title": "Android (Genérico)",
+      "requires_user_confirmation": false,
+      "user_confirmations": [],
+      "steps": [
+        "Quitar restricciones en segundo plano.",
+        "Configurar la app como Sin restricciones."
+      ]
+    }
+  ]
+}
